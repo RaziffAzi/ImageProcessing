@@ -1,0 +1,16 @@
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\ImageProcessingActivity.exe.config
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\ImageProcessingActivity.exe
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\ImageProcessingActivity.pdb
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\AForge.dll
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\AForge.Video.dll
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\AForge.xml
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\AForge.Video.xml
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\-.csproj.AssemblyReference.cache
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.exe.config
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.Form1.resources
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.Properties.Resources.resources
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\-.csproj.GenerateResource.cache
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\-.csproj.CoreCompileInputs.cache
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\-.csproj.Up2Date
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.exe
+C:\Users\gumap\Source\Repos\ImageProcessing\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.pdb

@@ -1,43 +1,104 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
-
+using WebCamLib;
 namespace ImageProcessingActivity
 {
     public partial class Form1 : Form
     {
         Bitmap imageA, imageB;
-
+        Device[] devices;   
+        Device activeDevice;
 
         public Form1()
         {
             InitializeComponent();
+            this.Load += Form1_Load;
+            this.FormClosing += Form1_FormClosing;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
+            devices = DeviceManager.GetAllDevices();
+            foreach (Device d in devices)
+            {
+                listBox1.Items.Add(d.Name); 
+            }
+        }
 
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex >= 0)
+            {
+                activeDevice = devices[listBox1.SelectedIndex];
+            }
         }
 
         private void btnCaptureWebcam_Click(object sender, EventArgs e)
         {
-            //IDataObject data;
-            //Image bmap;
-            //Device d = DeviceManager.GetDevice(listBox1.SelectedIndex);
-            //d.Sendmessage();
-            //data = Clipboard.GetDataObject();
-            //bmap = (Image)(data.GetData("System.Drawing.Bitmap", true));
-            //Bitmap b = new Bitmap(bmap);
+            if (activeDevice == null)
+            {
+                MessageBox.Show("Please select a webcam device first.");
+                return;
+            }
+
+            activeDevice.ShowWindow(orig);
+            webcamTimer.Start();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            webcamTimer.Stop();
+            if (activeDevice != null)
+                activeDevice.Stop(); 
         }
 
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (activeDevice == null)
+                return;
+
+            try
+            {
+                activeDevice.Sendmessage();
+
+                IDataObject data = Clipboard.GetDataObject();
+                if (data == null)
+                {
+                    return;
+                }
+
+                if (!data.GetDataPresent("System.Drawing.Bitmap", true))
+                {
+                    return;
+                }
+
+                Image bmap = (Image)data.GetData("System.Drawing.Bitmap", true);
+                if (bmap == null)
+                {
+                    return;
+                }
+
+                if (orig.Image != null)
+                    orig.Image.Dispose();
+
+                orig.Image = new Bitmap(bmap);
+                imageA = (Bitmap)orig.Image;
+            }
+            catch
+            {
+                //Ambot unsay error
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            orig.Image = null;
+            webcamTimer.Stop();
+            if (activeDevice != null)
+                activeDevice.Stop();
             openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
             openFileDialog1.Title = "Select an image";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -176,19 +237,10 @@ namespace ImageProcessingActivity
             processed.Image = bp;
         }
 
-        private void processed_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void picture2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             //load image2
+           
             openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
             openFileDialog1.Title = "Select an image";
 
@@ -209,7 +261,11 @@ namespace ImageProcessingActivity
         private void button1_Click_2(object sender, EventArgs e)
         {
             //subtract
+            webcamTimer.Stop();
+            if (activeDevice != null)
+                activeDevice.Stop();
             processed.Image = null;
+            imageA = (Bitmap)orig.Image;
             if (imageA.Width != imageB.Width || imageA.Height != imageB.Height)
             {
                 imageB = new Bitmap(imageB, new Size(imageA.Width, imageA.Height));
@@ -236,7 +292,6 @@ namespace ImageProcessingActivity
                         resultImage.SetPixel(x, y, pixel);
                 }
             }
-
             processed.Image = resultImage;
         }
     }
