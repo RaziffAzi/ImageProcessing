@@ -1,0 +1,16 @@
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\ImageProcessingActivity.exe.config
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\ImageProcessingActivity.exe
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\ImageProcessingActivity.pdb
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.csproj.AssemblyReference.cache
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.Form1.resources
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.Properties.Resources.resources
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.csproj.GenerateResource.cache
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.csproj.CoreCompileInputs.cache
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.exe
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.pdb
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImageProcessingActivity.exe.config
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\AForge.dll
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\AForge.Video.dll
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\AForge.xml
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\bin\Debug\AForge.Video.xml
+C:\Users\gumap\source\repos\ImageProcessingActivity\ImageProcessingActivity\obj\Debug\ImagePro.29F8D8D4.Up2Date
