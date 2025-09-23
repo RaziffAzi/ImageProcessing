@@ -39,7 +39,7 @@
             this.btnSubtract = new System.Windows.Forms.Button();
             this.btnSelectImage2 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCaptureWebcam = new System.Windows.Forms.Button();
             this.webcamTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.orig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.processed)).BeginInit();
@@ -142,15 +142,15 @@
             this.listBox1.TabIndex = 8;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
-            // button1
+            // btnCaptureWebcam
             // 
-            this.button1.Location = new System.Drawing.Point(299, 585);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(194, 39);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Capture Webcam";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btnCaptureWebcam_Click);
+            this.btnCaptureWebcam.Location = new System.Drawing.Point(299, 585);
+            this.btnCaptureWebcam.Name = "btnCaptureWebcam";
+            this.btnCaptureWebcam.Size = new System.Drawing.Size(194, 39);
+            this.btnCaptureWebcam.TabIndex = 9;
+            this.btnCaptureWebcam.Text = "Capture Webcam";
+            this.btnCaptureWebcam.UseVisualStyleBackColor = true;
+            this.btnCaptureWebcam.Click += new System.EventHandler(this.btnCaptureWebcam_Click);
             // 
             // webcamTimer
             // 
@@ -162,7 +162,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1651, 636);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCaptureWebcam);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnSelectImage2);
             this.Controls.Add(this.btnSubtract);
@@ -193,7 +193,7 @@
         private System.Windows.Forms.Button btnSubtract;
         private System.Windows.Forms.Button btnSelectImage2;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCaptureWebcam;
         private System.Windows.Forms.Timer webcamTimer;
     }
 }

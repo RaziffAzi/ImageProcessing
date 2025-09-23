@@ -10,12 +10,14 @@ namespace ImageProcessingActivity
         Bitmap imageA, imageB;
         Device[] devices;   
         Device activeDevice;
+        private bool isCapturing = false;
 
         public Form1()
         {
             InitializeComponent();
             this.Load += Form1_Load;
             this.FormClosing += Form1_FormClosing;
+            webcamTimer.Interval = 100; 
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -43,62 +45,101 @@ namespace ImageProcessingActivity
                 return;
             }
 
-            activeDevice.ShowWindow(orig);
-            webcamTimer.Start();
+            if (!isCapturing)
+            {
+                StartWebcamCapture();
+            }
+            else
+            {
+                StopWebcamCapture();
+            }
+        }
+
+        private void StartWebcamCapture()
+        {
+            try
+            {
+                if (activeDevice != null)
+                    activeDevice.Stop();
+
+                activeDevice.ShowWindow(orig);
+
+                isCapturing = true;
+                btnCaptureWebcam.Text = "Stop Webcam";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error starting webcam: " + ex.Message);
+            }
+        }
+
+        private void StopWebcamCapture()
+        {
+            webcamTimer.Stop();
+            if (activeDevice != null)
+                activeDevice.Stop();
+            isCapturing = false;
+            btnCaptureWebcam.Text = "Capture Webcam";
+            orig.Image = null;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            webcamTimer.Stop();
-            if (activeDevice != null)
-                activeDevice.Stop(); 
+            StopWebcamCapture();
         }
 
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (activeDevice == null)
+            if (activeDevice == null || !isCapturing)
                 return;
 
             try
             {
-                activeDevice.Sendmessage();
-
-                IDataObject data = Clipboard.GetDataObject();
-                if (data == null)
-                {
-                    return;
-                }
-
-                if (!data.GetDataPresent("System.Drawing.Bitmap", true))
-                {
-                    return;
-                }
-
-                Image bmap = (Image)data.GetData("System.Drawing.Bitmap", true);
-                if (bmap == null)
-                {
-                    return;
-                }
-
-                if (orig.Image != null)
-                    orig.Image.Dispose();
-
-                orig.Image = new Bitmap(bmap);
-                imageA = (Bitmap)orig.Image;
+                CaptureFrame();
             }
-            catch
+            catch (Exception ex)
             {
-                //Ambot unsay error
+            }
+        }
+
+        private void CaptureFrame()
+        {
+            IDataObject data;
+            Image bmap;
+
+            // Use the exact pattern you specified
+            Device d = DeviceManager.GetDevice(listBox1.SelectedIndex);
+            d.Sendmessage();
+            data = Clipboard.GetDataObject();
+
+            if (data != null && data.GetDataPresent("System.Drawing.Bitmap", true))
+            {
+                bmap = (Image)(data.GetData("System.Drawing.Bitmap", true));
+
+                if (bmap != null)
+                {
+                    // Dispose of previous image to prevent memory leaks
+                    if (orig.Image != null)
+                    {
+                        orig.Image.Dispose();
+                        orig.Image = null;
+                    }
+
+                    // Create new bitmap using your specified pattern
+                    Bitmap b = new Bitmap(bmap);
+                    imageA = b;
+                    orig.Image = imageA;
+
+                    // Clean up
+                    bmap.Dispose();
+                }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            orig.Image = null;
-            webcamTimer.Stop();
-            if (activeDevice != null)
-                activeDevice.Stop();
+            StopWebcamCapture();
             openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
             openFileDialog1.Title = "Select an image";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -261,9 +302,7 @@ namespace ImageProcessingActivity
         private void button1_Click_2(object sender, EventArgs e)
         {
             //subtract
-            webcamTimer.Stop();
-            if (activeDevice != null)
-                activeDevice.Stop();
+            StopWebcamCapture();
             processed.Image = null;
             imageA = (Bitmap)orig.Image;
             if (imageA.Width != imageB.Width || imageA.Height != imageB.Height)
