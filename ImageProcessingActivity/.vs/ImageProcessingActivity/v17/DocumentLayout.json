@@ -1,0 +1,78 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\gumap\\source\\repos\\ImageProcessing4\\ImageProcessingActivity\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{789606F9-FDEC-46DF-8088-EBCDEDEE3EDD}|ImageProcessingActivity\\-.csproj|c:\\users\\gumap\\source\\repos\\imageprocessing4\\imageprocessingactivity\\imageprocessingactivity\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{789606F9-FDEC-46DF-8088-EBCDEDEE3EDD}|ImageProcessingActivity\\-.csproj|solutionrelative:imageprocessingactivity\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{789606F9-FDEC-46DF-8088-EBCDEDEE3EDD}|ImageProcessingActivity\\-.csproj|c:\\users\\gumap\\source\\repos\\imageprocessing4\\imageprocessingactivity\\imageprocessingactivity\\convmatrix.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{789606F9-FDEC-46DF-8088-EBCDEDEE3EDD}|ImageProcessingActivity\\-.csproj|solutionrelative:imageprocessingactivity\\convmatrix.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\gumap\\source\\repos\\ImageProcessing4\\ImageProcessingActivity\\ImageProcessingActivity\\Form1.cs",
+              "RelativeDocumentMoniker": "ImageProcessingActivity\\Form1.cs",
+              "ToolTip": "C:\\Users\\gumap\\source\\repos\\ImageProcessing4\\ImageProcessingActivity\\ImageProcessingActivity\\Form1.cs",
+              "RelativeToolTip": "ImageProcessingActivity\\Form1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T08:40:50.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ConvMatrix.cs",
+              "DocumentMoniker": "C:\\Users\\gumap\\source\\repos\\ImageProcessing4\\ImageProcessingActivity\\ImageProcessingActivity\\ConvMatrix.cs",
+              "RelativeDocumentMoniker": "ImageProcessingActivity\\ConvMatrix.cs",
+              "ToolTip": "C:\\Users\\gumap\\source\\repos\\ImageProcessing4\\ImageProcessingActivity\\ImageProcessingActivity\\ConvMatrix.cs*",
+              "RelativeToolTip": "ImageProcessingActivity\\ConvMatrix.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T08:39:56.328Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
