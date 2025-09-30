@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using WebCamLib;
+
 namespace ImageProcessingActivity
 {
     public partial class Form1 : Form
@@ -25,7 +28,7 @@ namespace ImageProcessingActivity
             devices = DeviceManager.GetAllDevices();
             foreach (Device d in devices)
             {
-                listBox1.Items.Add(d.Name); 
+                listBox1.Items.Add(d.Name);
             }
         }
 
@@ -39,12 +42,6 @@ namespace ImageProcessingActivity
 
         private void btnCaptureWebcam_Click(object sender, EventArgs e)
         {
-            if (activeDevice == null)
-            {
-                MessageBox.Show("Please select a webcam device first.");
-                return;
-            }
-
             if (!isCapturing)
             {
                 StartWebcamCapture();
@@ -190,6 +187,57 @@ namespace ImageProcessingActivity
                 case "Sepia":
                     Sepia();
                     break;
+
+                case "Smooth":
+                    Bitmap bp = (Bitmap)orig.Image.Clone();
+                    Smooth(bp);
+                    processed.Image = bp;
+                    break;
+                case "Gaussian Blur":
+                    Bitmap bp2 = (Bitmap)orig.Image.Clone();
+                    GaussianBlur(bp2);
+                    processed.Image = bp2;
+                    break;
+                case "Sharpen":
+                    Bitmap bp3 = (Bitmap)orig.Image.Clone();
+                    Sharpen(bp3);
+                    processed.Image = bp3;
+                    break;
+                case "Mean Removal":
+                    Bitmap bp4 = (Bitmap)orig.Image.Clone();
+                    MeanRemoval(bp4);
+                    processed.Image = bp4;
+                    break;
+                case "Emboss Laplascian":
+                    Bitmap bp5 = (Bitmap)orig.Image.Clone();
+                    EmbossLaplascian(bp5);
+                    processed.Image = bp5;
+                    break;
+                case "Emboss (Horizontal/Vertical)":
+                    Bitmap bp6 = (Bitmap)orig.Image.Clone();
+                    HorizontalOrVertical(bp6);
+                    processed.Image = bp6;
+                    break;
+                case "Emboss (All Directions)":
+                    Bitmap bp7 = (Bitmap)orig.Image.Clone();
+                    AllDirections(bp7);
+                    processed.Image = bp7;
+                    break;
+                case "Emboss (Horizontal)":
+                    Bitmap bp8 = (Bitmap)orig.Image.Clone();
+                    Horizontal(bp8);
+                    processed.Image = bp8;
+                    break;
+                case "Emboss (Vertical)":
+                    Bitmap bp9 = (Bitmap)orig.Image.Clone();
+                    Vertical(bp9);
+                    processed.Image = bp9;
+                    break;
+                case "Emboss (Lossy)":
+                    Bitmap bp10 = (Bitmap)orig.Image.Clone();
+                    EmbossLossy(bp10);
+                    processed.Image = bp10;
+                    break;
             }
         }
         
@@ -299,6 +347,11 @@ namespace ImageProcessingActivity
             }
         }
 
+        private void cbImageProcess_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void button1_Click_2(object sender, EventArgs e)
         {
             //subtract
@@ -332,6 +385,200 @@ namespace ImageProcessingActivity
                 }
             }
             processed.Image = resultImage;
+        }
+
+        public static bool Conv3x3(Bitmap b, ConvMatrix m)
+        {
+            if (0 == m.Factor)
+                return false; Bitmap
+
+            bSrc = (Bitmap)b.Clone();
+            BitmapData bmData = b.LockBits(new Rectangle(0, 0, b.Width, b.Height),
+                                ImageLockMode.ReadWrite,
+                                PixelFormat.Format24bppRgb);
+            BitmapData bmSrc = bSrc.LockBits(new Rectangle(0, 0, bSrc.Width, bSrc.Height),
+                               ImageLockMode.ReadWrite,
+                               PixelFormat.Format24bppRgb);
+
+            int stride = bmData.Stride;
+            int stride2 = stride * 2;
+
+            System.IntPtr Scan0 = bmData.Scan0;
+            System.IntPtr SrcScan0 = bmSrc.Scan0;
+
+            unsafe
+            {
+                byte* p = (byte*)(void*)Scan0;
+                byte* pSrc = (byte*)(void*)SrcScan0;
+                int nOffset = stride - b.Width * 3;
+                int nWidth = b.Width - 2;
+                int nHeight = b.Height - 2;
+                int nPixel;
+
+                for (int y = 0; y < nHeight; ++y)
+                {
+                    for (int x = 0; x < nWidth; ++x)
+                    {
+                        nPixel = ((((pSrc[2] * m.TopLeft) +
+                            (pSrc[5] * m.TopMid) +
+                            (pSrc[8] * m.TopRight) +
+                            (pSrc[2 + stride] * m.MidLeft) +
+                            (pSrc[5 + stride] * m.Pixel) +
+                            (pSrc[8 + stride] * m.MidRight) +
+                            (pSrc[2 + stride2] * m.BottomLeft) +
+                            (pSrc[5 + stride2] * m.BottomMid) +
+                            (pSrc[8 + stride2] * m.BottomRight))
+                            / m.Factor) + m.Offset);
+                        
+                        if (nPixel < 0) nPixel = 0;
+                        if (nPixel > 255) nPixel = 255;
+                        p[5 + stride] = (byte)nPixel;
+
+                        nPixel = ((((pSrc[1] * m.TopLeft) +
+                            (pSrc[4] * m.TopMid) +
+                            (pSrc[7] * m.TopRight) +
+                            (pSrc[1 + stride] * m.MidLeft) +
+                            (pSrc[4 + stride] * m.Pixel) +
+                            (pSrc[7 + stride] * m.MidRight) +
+                            (pSrc[1 + stride2] * m.BottomLeft) +
+                            (pSrc[4 + stride2] * m.BottomMid) +
+                            (pSrc[7 + stride2] * m.BottomRight))
+                            / m.Factor) + m.Offset);
+
+                        if (nPixel < 0) nPixel = 0;
+                        if (nPixel > 255) nPixel = 255;
+                        p[4 + stride] = (byte)nPixel;
+
+                        nPixel = ((((pSrc[0] * m.TopLeft) +
+                                       (pSrc[3] * m.TopMid) +
+                                       (pSrc[6] * m.TopRight) +
+                                       (pSrc[0 + stride] * m.MidLeft) +
+                                       (pSrc[3 + stride] * m.Pixel) +
+                                       (pSrc[6 + stride] * m.MidRight) +
+                                       (pSrc[0 + stride2] * m.BottomLeft) +
+                                       (pSrc[3 + stride2] * m.BottomMid) +
+                                       (pSrc[6 + stride2] * m.BottomRight))
+                            / m.Factor) + m.Offset);
+
+                        if (nPixel < 0) nPixel = 0;
+                        if (nPixel > 255) nPixel = 255;
+                        p[3 + stride] = (byte)nPixel;
+
+                        p += 3;
+                        pSrc += 3;
+                    }
+                    p += nOffset;
+                    pSrc += nOffset;
+                }
+            }
+            b.UnlockBits(bmData);
+            bSrc.UnlockBits(bmSrc);
+
+            return true;
+        }
+        public static bool Smooth(Bitmap b, int nWeight = 1)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(1);
+            m.Pixel = nWeight;
+            m.Factor = nWeight + 8;
+            return Conv3x3(b, m);
+        }
+
+        public static bool GaussianBlur(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.TopLeft = m.TopRight = m.BottomLeft = m.BottomRight = 1;
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomMid = 2;
+            m.Pixel = 4;
+            m.Factor = 16;
+            return Conv3x3(b, m);
+        }
+
+        public static bool Sharpen(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomMid = -2;
+            m.TopLeft = m.TopRight = m.BottomLeft = m.BottomRight = 0;
+            m.Pixel = 11;
+            m.Factor = 3;
+            return Conv3x3(b, m);
+        }
+
+        public static bool MeanRemoval(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(-1);
+            m.Pixel = 9;
+            m.Factor = 1;
+            return Conv3x3(b, m);
+        }
+
+        public static bool EmbossLaplascian(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.TopLeft = -1; m.TopRight = -1;
+            m.MidLeft = 0; m.Pixel = 4; m.MidRight = 0;
+            m.BottomLeft = -1; m.BottomRight = -1;
+            m.TopMid = 0; m.BottomMid = 0;
+            m.Factor = 1;
+            m.Offset = 127;
+            return Conv3x3(b, m);
+        }
+
+        public static bool HorizontalOrVertical(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.TopLeft = m.TopRight = m.BottomLeft = m.BottomRight = 0;
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomMid = -1;
+            m.Pixel = 4;
+            m.Factor = 1;
+            m.Offset = 127;
+            return Conv3x3(b, m);
+        }
+
+        public static bool AllDirections(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(-1);
+            m.Pixel = 8;
+            m.Factor = 1;
+            m.Offset = 127;
+            return Conv3x3(b, m);
+        }
+
+        public static bool Horizontal(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(0);
+            m.MidRight = m.MidLeft = -1;
+            m.Pixel = 2;
+            m.Factor = 1;
+            m.Offset = 127;
+            return Conv3x3(b, m);
+        }
+
+        public static bool Vertical(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(0);
+            m.TopMid = -1; m.BottomMid = 1;
+            m.Factor = 1;
+            m.Offset = 127;
+            return Conv3x3(b, m);
+        }
+
+        public static bool EmbossLossy(Bitmap b)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.Pixel = 4;
+            m.TopRight = 1;
+            m.TopLeft = 1;
+            m.BottomMid = 1;
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomLeft = m.BottomRight = -2;
+            m.Factor = 1;
+            m.Offset = 127;
+            return Conv3x3(b, m);
         }
     }
 }

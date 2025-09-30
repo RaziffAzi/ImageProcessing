@@ -55,11 +55,22 @@
             "Greyscale",
             "Inversion",
             "Histogram",
-            "Sepia"});
+            "Sepia",
+            "Smooth",
+            "Gaussian Blur",
+            "Sharpen",
+            "Mean Removal",
+            "Emboss Laplascian",
+            "Emboss (Horizontal/Vertical)",
+            "Emboss (All Directions)",
+            "Emboss (Horizontal)",
+            "Emboss (Vertical)",
+            "Emboss (Lossy)"});
             this.cbImageProcess.Location = new System.Drawing.Point(21, 18);
             this.cbImageProcess.Name = "cbImageProcess";
-            this.cbImageProcess.Size = new System.Drawing.Size(121, 28);
+            this.cbImageProcess.Size = new System.Drawing.Size(254, 28);
             this.cbImageProcess.TabIndex = 0;
+            this.cbImageProcess.SelectedIndexChanged += new System.EventHandler(this.cbImageProcess_SelectedIndexChanged);
             // 
             // orig
             // 
@@ -136,7 +147,7 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(181, 13);
+            this.listBox1.Location = new System.Drawing.Point(331, 12);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(208, 44);
             this.listBox1.TabIndex = 8;
